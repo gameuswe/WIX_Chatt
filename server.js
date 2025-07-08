@@ -56,9 +56,9 @@ app.post('/ask', async (req, res) => {
       return res.status(400).json({ error: "Ingen fråga angiven." });
     }
 
-    // Välj Gemini-modellen - ÄNDRAD TILL EN STABILARE MODELL
+    // Välj Gemini-modellen - ÄNDRAD TILL EN KORREKT MODELLVERSION
     const model = genAI.getGenerativeModel({ 
-        model: "gemini-pro",
+        model: "gemini-1.0-pro",
         systemInstruction: systemInstruction,
     });
 
