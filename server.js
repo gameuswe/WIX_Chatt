@@ -1,7 +1,4 @@
 // Detta är din backend-server. Den ska köras med Node.js.
-// STEG 1: Installera nödvändiga paket i din terminal:
-// npm install express @google/generative-ai cors dotenv
-
 const express = require('express');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const cors = require('cors');
@@ -11,14 +8,10 @@ const app = express();
 app.use(cors()); // Tillåter att din frontend (från Wix/lokalt) anropar servern
 app.use(express.json()); // Tillåter servern att ta emot JSON-data
 
-// STEG 2: Hämta din API-nyckel från Google AI Studio
-// Skapa en API-nyckel på https://aistudio.google.com/app/apikey
-// Lägg den i en fil som heter ".env"
-// Exempel på .env-fil: GOOGLE_API_KEY="din-hemliga-nyckel-har"
+// Hämta din API-nyckel från Google AI Studio
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 
-// STEG 3: "Träna" din modell med en SLUTGILTIG Systeminstruktion
-// Här definierar vi exakt hur modellen ska bete sig.
+// "Träna" din modell med en SLUTGILTIG Systeminstruktion
 const systemInstruction = `
 Du är "Islam GAMEU". Agera som en kunnig, avslappnad och schysst kompis som svarar på frågor om islam för ungdomar.
 
@@ -56,9 +49,9 @@ app.post('/ask', async (req, res) => {
       return res.status(400).json({ error: "Ingen fråga angiven." });
     }
 
-    // Välj Gemini-modellen - ÄNDRAD TILL EN KORREKT MODELLVERSION
+    // Välj Gemini-modellen - ÄNDRAD TILL DEN SENASTE STABILA MODELLVERSIONEN
     const model = genAI.getGenerativeModel({ 
-        model: "gemini-1.0-pro",
+        model: "gemini-1.5-pro-latest",
         systemInstruction: systemInstruction,
     });
 
@@ -79,7 +72,7 @@ app.post('/ask', async (req, res) => {
   }
 });
 
-// STEG 4: Starta servern
+// Starta servern
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Servern lyssnar på port ${PORT}`);
