@@ -2,11 +2,11 @@
 const express = require('express');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const cors = require('cors');
-require('dotenv').config(); // För att säkert ladda din API-nyckel
+require('dotenv').config(); 
 
 const app = express();
-app.use(cors()); // Tillåter att din frontend (från Wix/lokalt) anropar servern
-app.use(express.json()); // Tillåter servern att ta emot JSON-data
+app.use(cors()); 
+app.use(express.json());
 
 // Hämta din API-nyckel från Google AI Studio
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
@@ -49,7 +49,7 @@ app.post('/ask', async (req, res) => {
       return res.status(400).json({ error: "Ingen fråga angiven." });
     }
 
-    // Välj Gemini-modellen - ÄNDRAD TILL DEN SENASTE STABILA MODELLVERSIONEN
+    // Välj Gemini-modellen - Den senaste stabila versionen
     const model = genAI.getGenerativeModel({ 
         model: "gemini-1.5-pro-latest",
         systemInstruction: systemInstruction,
